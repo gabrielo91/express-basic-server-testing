@@ -8,9 +8,17 @@ describe("Test health check", () => {
     expect(response.body).toEqual({ status: "OK" });
     done();
   });
+});
 
-  afterAll(async (done) => {
-    server.close();
+describe("Test error endpoint", () => {
+  it("Error page returns 500", async (done) => {
+    const response = await request(server).get("/error-500");
+    expect(response.status).toBe(500);
     done();
   });
+});
+
+afterAll(async (done) => {
+  server.close();
+  done();
 });
